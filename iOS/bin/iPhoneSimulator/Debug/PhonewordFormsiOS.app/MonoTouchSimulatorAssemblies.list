@@ -3,7 +3,6 @@ System.dll
 System.Core.dll
 Mono.Dynamic.Interpreter.dll
 System.Xml.dll
-Xamarin.Forms.Platform.iOS.dll
 Xamarin.Forms.Core.dll
 System.Runtime.dll
 System.ComponentModel.Composition.dll
@@ -21,4 +20,5 @@ System.ComponentModel.dll
 System.Reflection.Extensions.dll
 System.Linq.dll
 System.Diagnostics.Debug.dll
+Xamarin.Forms.Platform.iOS.dll
 System.Net.Http.dll
