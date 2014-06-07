@@ -13,9 +13,11 @@ namespace PhonewordForms
 
 	public class MainPage : ContentPage
 	{
-		public Button TranslatorBtn { get; set; }
+		private Button TranslatorBtn { get; set; }
 
-		public Button CallBtn { get; set; }
+		private Button CallBtn { get; set; }
+
+		private Entry PhonewordEntry { get; set; }
 
 		public MainPage()
 		{
@@ -35,7 +37,7 @@ namespace PhonewordForms
 			var phonewordLabel = new Label () {
 				Text = "Enter a Phoneword"
 			};
-			var phonewordEntry = new Entry ();
+			PhonewordEntry = new Entry ();
 			TranslatorBtn = new Button () { 
 				Text = "Translate"
 			};
@@ -46,19 +48,35 @@ namespace PhonewordForms
 
 			// inserting my items into the layout
 			myStackLayout.Children.Add (phonewordLabel);
-			myStackLayout.Children.Add (phonewordEntry);
+			myStackLayout.Children.Add (PhonewordEntry);
 			myStackLayout.Children.Add (TranslatorBtn);
 			myStackLayout.Children.Add (CallBtn);
 
 			// set click events for buttons
 			TranslatorBtn.Clicked += translatorBtnClicked;
+			CallBtn.Clicked += callBtnClicked;
 
 			this.Content = myStackLayout;
 		}
 
 		public void translatorBtnClicked(Object sender, EventArgs e)
 		{
+			var textToTranslate = PhonewordEntry.Text;
+			if (string.IsNullOrEmpty(textToTranslate)) {
+				CallBtn.IsEnabled = false;
+				CallBtn.Text = "Call";
+				DisplayAlert ("Error", "You need to provide a word to translate.", "Ok", "Cancel");
+				return;
+			}
+
+			var translatedText = Core.PhonewordTranslator.ToNumber (textToTranslate);
 			CallBtn.IsEnabled = true;
+			CallBtn.Text = "Call 1-800-" + translatedText;
+		}
+
+		public void callBtnClicked(Object sender, EventArgs e)
+		{
+			Console.WriteLine ("call that number yo");
 		}
 	}
 }
